@@ -52,21 +52,21 @@ import EssentialLink from 'components/EssentialLink.vue'
 const linksList = [
   {
     title: 'New order',
-    caption: 'quasar.dev',
+    caption: 'คำสั่งใหม่',
     icon: 'school',
-    link: 'https://quasar.dev'
+    to: 'https://quasar.dev'
   },
   {
     title: 'Previous orders',
-    caption: 'github.com/quasarframework',
+    caption: 'ประวัติคำสั่งย้อนหลัง',
     icon: 'code',
-    link: 'https://github.com/quasarframework'
+    to: 'https://github.com/quasarframework'
   },
   {
     title: 'Patient EMR',
-    caption: 'forum.quasar.dev',
+    caption: 'ข้อมูลการรักษา',
     icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
+    to: 'https://forum.quasar.dev'
   }
 ]
 
