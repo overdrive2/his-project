@@ -1,41 +1,25 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout id="mainLayout" view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
           Quasar App
         </q-toolbar-title>
 
-        <div>HIS-DD v{{ $q.version }}</div>
+        <q-btn v-if="userStore.userName" to="/account" flat round dense icon="account_circle" />
+        <q-btn v-else to="/auth" flat round dense icon="login" />
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
+        <q-item-label header>
           Essential Links
         </q-item-label>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
@@ -45,9 +29,14 @@
   </q-layout>
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue'
+<script setup>
+import { ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { useUserStore } from 'src/stores/user-store'
+
+const userStore = useUserStore()
+
+const leftDrawerOpen = ref(false)
 
 const linksList = [
   {
@@ -70,23 +59,10 @@ const linksList = [
   }
 ]
 
-export default defineComponent({
-  name: 'MainLayout',
+const essentialLinks = linksList
 
-  components: {
-    EssentialLink
-  },
+const toggleLeftDrawer = () => {
+  leftDrawerOpen.value = !leftDrawerOpen.value
+}
 
-  setup () {
-    const leftDrawerOpen = ref(false)
-
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
 </script>

@@ -1,7 +1,9 @@
 <template>
   <q-page>
     <div class="flex flex-center">Page2</div>
-    <div class="q-pa-lg"><q-btn color="primary" icon="mail" label="On Left"></q-btn></div>
+    <div class="q-pa-lg">
+      <q-btn color="primary" icon="mail" label="On Left"></q-btn>
+    </div>
     <div class="q-pa-md">
       <q-btn color="purple" @click="showNotif" label="Show Notification"></q-btn>
     </div>
