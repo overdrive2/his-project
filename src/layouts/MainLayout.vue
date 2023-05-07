@@ -9,7 +9,7 @@
         </q-toolbar-title>
 
         <q-btn v-if="userStore.userName" to="/account" flat round dense icon="account_circle" />
-        <q-btn v-else to="/auth" flat round dense icon="login" />
+        <q-btn v-if="userStore.userName" @click="logout" flat round dense icon="logout" />
       </q-toolbar>
     </q-header>
 
@@ -30,13 +30,16 @@
 </template>
 
 <script setup>
+import { useQuasar } from 'quasar'
 import { ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 import { useUserStore } from 'src/stores/user-store'
+import { useRouter } from 'vue-router'
 
 const userStore = useUserStore()
-
+const $q = useQuasar()
 const leftDrawerOpen = ref(false)
+const router = useRouter()
 
 const linksList = [
   {
@@ -65,4 +68,22 @@ const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 
+const logout = () => {
+  const res = $q.dialog({
+    title: 'Logout!',
+    message: 'Are you sure you want to logout?',
+    cancel: true,
+    persistent: true
+  })
+
+  res.onOk(async () => {
+    try {
+      await userStore.logout()
+      userStore.clearUser()
+      router.push('/login')
+    } catch (error) {
+      console.log(error)
+    }
+  })
+}
 </script>
